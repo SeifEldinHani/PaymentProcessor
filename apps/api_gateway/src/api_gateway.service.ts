@@ -26,10 +26,10 @@ export class ApiGatewayService implements OnModuleInit {
     console.log("[Transaction Processor]: ", transactionDTO.transactionProcessor)
     this.paymentProcessorServiceClient.processTransaction(transactionDTO).subscribe(
       () => {
-          console.log('Transaction sent successfully');
+          console.log(`Transaction with id: ${transactionDTO.id} sent successfully`);
       },
       (error) => {
-          console.error('Error sending transaction:', error.message);
+          console.error(`Error sending  with id: ${transactionDTO.id} :`, error.message);
       }
   );
   }

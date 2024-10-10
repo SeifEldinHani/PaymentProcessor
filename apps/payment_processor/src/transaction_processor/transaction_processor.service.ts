@@ -32,8 +32,8 @@ export abstract class TransactionProcessor {
                 throw error
             })
             if (!affectedCount){
-                console.log("Transaction Already Cleared!")
-                throw new Error("Duplicate Clearing Transasctions")
+                console.log("Transaction not availanle for clearing")
+                throw new Error("Failed Clearing Transasctions")
             }
         }
     }
