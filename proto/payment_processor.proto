@@ -1,0 +1,42 @@
+syntax = "proto3";
+package payment_processor;
+
+service PaymentProcessorService {
+    rpc GetTransactions(Empty) returns (Transactions) {}
+    rpc ProcessTransaction(TransactionDTO) returns (Empty) {}
+}
+
+message Empty{};
+
+message Transactions {
+    repeated GetTransactionDTO Transactions = 1; 
+}
+
+message GetTransactionDTO {
+    string id = 1; 
+    string transactionOriginId = 2;
+    string network = 3; 
+    string merchantName = 4; 
+    string authTransactionAmount = 5; 
+    optional string clearingTransactionAmount = 6; 
+    string transactionCurrency = 8; 
+    string authTransactionTimestamp = 9; 
+    optional string clearingtransactionTimestamp = 10; 
+}
+
+message TransactionDTO {
+    string id = 1; 
+    string transactionOriginId = 2;
+    string network = 3; 
+    string transactionType = 4;
+    string transactionProcessor = 5; 
+    string merchantName = 6; 
+    string transactionAmount = 7; 
+    string transactionCurrency = 8; 
+    string transactionTimestamp = 9; 
+}
+
+
+
+
+

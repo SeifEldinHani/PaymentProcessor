@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  payment_processor:
+    build:
+      context: .
+      dockerfile: ./apps/payment_processor/Dockerfile
+    volumes:
+      - ./proto:/proto
+      - ./apps/payment_processor/src:/src
+      - ./apps/payment_processor/test:/test
+      - ./apps/payment_processor/migrations:/migrations
+      - ./apps/payment_processor/models:/models
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    command: ["/bin/sh", "-c", "./wait-for-it.sh db:5432 -- npm run migrate && npm run start:dev payment_processor"]
+    environment:
+      NODE_ENV: development
+
+  api_gateway:
+    build:
+      context: .
+      dockerfile: ./apps/api_gateway/Dockerfile
+    volumes:
+      - ./proto:/proto
+      - ./apps/api_gateway/src:/src
+      - ./apps/api_gateway/test:/test
+    ports:
+      - "3000:3000"
+    command: ["npm", "run", "start:dev", "api_gateway"]
+    environment:
+      NODE_ENV: development
+  
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: payment_processor_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

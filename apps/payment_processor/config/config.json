@@ -1,0 +1,19 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "admin",
+    "database": "payment_processor_db",
+    "host": "db",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "test": {
+    "username": "admin",
+    "password": "admin",
+    "database": "payment_processor_db",
+    "host": "db",
+    "dialect": "postgres",
+    "port": 5432,
+    "logging": false
+  }
+}
